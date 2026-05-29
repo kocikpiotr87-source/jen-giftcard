@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Addicted To Ink — Gift Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Cinzel:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#efe7da;
+    --paper:#f6efe3;
+    --ink:#43434b;
+    --ink-soft:#84818b;
+    --rose:#d7a9a5;
+    --rose-deep:#c89a95;
+    --sage:#aebfb2;
+    --gold:#c9b187;
+    --line:rgba(67,67,75,.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:#e4dccf;
+    min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:32px 18px;
+    font-family:'Jost',sans-serif;
+    background-image:
+      radial-gradient(circle at 18% 12%, rgba(215,169,165,.14), transparent 50%),
+      radial-gradient(circle at 82% 88%, rgba(174,191,178,.16), transparent 50%);
+  }
+
+  .card{
+    width:min(500px,100%);
+    aspect-ratio:1.586/1;
+    border-radius:20px;
+    position:relative;overflow:hidden;
+    background:linear-gradient(150deg,var(--paper) 0%,var(--cream) 100%);
+    box-shadow:0 22px 44px -22px rgba(80,60,55,.5),
+               0 0 0 1px rgba(255,255,255,.5) inset;
+    color:var(--ink);
+    container-type:inline-size;
+    animation:rise .8s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(22px) scale(.99);}to{opacity:1;transform:none;}}
+
+  .card::after{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.04;z-index:6;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  .roses{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+  .roses svg{position:absolute;width:100%;height:100%;}
+
+  .inner{position:relative;z-index:5;height:100%;
+    padding:5cqw 6.5cqw;display:flex;flex-direction:column;}
+
+  .topline{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+  .brand{font-family:'Cinzel',serif;font-weight:600;font-size:6.2cqw;line-height:1;
+    color:var(--ink);letter-spacing:.5px;}
+  .sub{font-family:'Jost',sans-serif;font-weight:500;color:var(--rose-deep);
+    font-size:2.6cqw;letter-spacing:.32em;margin-top:1.2cqw;text-transform:uppercase;}
+  .est{text-align:right;font-size:2cqw;letter-spacing:.18em;color:var(--ink-soft);
+    text-transform:uppercase;white-space:nowrap;padding-top:1cqw;}
+  .est b{display:block;color:var(--gold);font-weight:600;font-size:2.5cqw;letter-spacing:.22em;margin-top:.4cqw;}
+
+  .giftlabel{margin-top:3.5cqw;display:flex;align-items:center;gap:3cqw;
+    font-size:2.4cqw;letter-spacing:.42em;text-transform:uppercase;color:var(--ink-soft);}
+  .giftlabel::after{content:"";flex:1;height:1px;
+    background:linear-gradient(90deg,var(--rose),transparent);}
+
+  .amount{font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:9cqw;line-height:.88;color:var(--ink);display:flex;align-items:flex-start;}
+  .amount .cur{color:var(--rose-deep);font-size:4cqw;margin-right:.3cqw;line-height:1;align-self:flex-start;margin-top:.8cqw;}
+
+  .recipient{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:10px;}
+  .to-label{font-size:2cqw;letter-spacing:.32em;color:var(--ink-soft);text-transform:uppercase;}
+  .to-name{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:6cqw;
+    color:var(--ink);line-height:1;margin-top:.5cqw;}
+  .wish{color:var(--rose-deep);font-size:2.8cqw;font-weight:400;letter-spacing:.04em;margin-top:.8cqw;}
+
+  .order{display:flex;align-items:baseline;gap:1.2cqw;margin-top:1.2cqw;}
+  .order small{font-size:1.6cqw;letter-spacing:.22em;color:var(--ink-soft);text-transform:uppercase;opacity:.6;}
+  .order b{font-family:'Jost',sans-serif;font-weight:400;font-size:2cqw;color:var(--ink-soft);letter-spacing:.04em;opacity:.8;}
+
+  .footer{margin-top:3cqw;padding-top:2.4cqw;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;gap:8px;
+    font-size:1.9cqw;letter-spacing:.1em;color:var(--ink-soft);text-transform:uppercase;}
+  .footer .addr{display:flex;flex-direction:column;gap:.4cqw;}
+  .footer .phone{color:var(--rose-deep);}
+  .footer a{color:var(--ink-soft);text-decoration:none;}
+  .footer .right{text-align:right;display:flex;flex-direction:column;gap:.4cqw;}
+
+  .save{margin-top:24px;}
+  .save button{font-family:'Jost';font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+    font-size:12px;color:var(--paper);background:var(--rose-deep);border:none;
+    padding:12px 30px;border-radius:8px;cursor:pointer;transition:.2s;
+    box-shadow:0 8px 18px -8px rgba(200,154,149,.7);}
+  .save button:hover{background:var(--rose);transform:translateY(-1px);}
+  @media print{.save{display:none;}body{background:#fff;background-image:none;}}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="roses">
+      <svg viewBox="0 0 500 315" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="petalPink" cx="42%" cy="38%" r="68%">
+            <stop offset="0%" stop-color="#e85a9a"/>
+            <stop offset="55%" stop-color="#cf2b78"/>
+            <stop offset="100%" stop-color="#8e1450"/>
+          </radialGradient>
+          <radialGradient id="petalRed" cx="42%" cy="38%" r="68%">
+            <stop offset="0%" stop-color="#e0494a"/>
+            <stop offset="55%" stop-color="#c01f2e"/>
+            <stop offset="100%" stop-color="#7d0f1c"/>
+          </radialGradient>
+          <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#3f6b3a"/>
+            <stop offset="100%" stop-color="#234a25"/>
+          </linearGradient>
+
+          <!-- Layered cabbage rose. Outer petals -> inner whorl -> center -->
+          <g id="rose">
+            <!-- outer petal ring -->
+            <g>
+              <path d="M0,-26 C16,-30 30,-18 27,-2 C25,10 12,16 2,12 C-8,8 -10,-6 -3,-15 C0,-19 0,-22 0,-26Z" fill="url(#petalPink)" transform="rotate(0)"/>
+              <path d="M0,-26 C16,-30 30,-18 27,-2 C25,10 12,16 2,12 C-8,8 -10,-6 -3,-15 C0,-19 0,-22 0,-26Z" fill="url(#petalPink)" transform="rotate(72)"/>
+              <path d="M0,-26 C16,-30 30,-18 27,-2 C25,10 12,16 2,12 C-8,8 -10,-6 -3,-15 C0,-19 0,-22 0,-26Z" fill="url(#petalPink)" transform="rotate(144)"/>
+              <path d="M0,-26 C16,-30 30,-18 27,-2 C25,10 12,16 2,12 C-8,8 -10,-6 -3,-15 C0,-19 0,-22 0,-26Z" fill="url(#petalPink)" transform="rotate(216)"/>
+              <path d="M0,-26 C16,-30 30,-18 27,-2 C25,10 12,16 2,12 C-8,8 -10,-6 -3,-15 C0,-19 0,-22 0,-26Z" fill="url(#petalPink)" transform="rotate(288)"/>
+            </g>
+            <!-- mid petals (offset) -->
+            <g transform="rotate(36) scale(.66)">
+              <path d="M0,-26 C16,-30 30,-18 27,-2 C25,10 12,16 2,12 C-8,8 -10,-6 -3,-15 C0,-19 0,-22 0,-26Z" fill="url(#petalPink)" transform="rotate(0)"/>
+              <path d="M0,-26 C16,-30 30,-18 27,-2 C25,10 12,16 2,12 C-8,8 -10,-6 -3,-15 C0,-19 0,-22 0,-26Z" fill="url(#petalPink)" transform="rotate(72)"/>
+              <path d="M0,-26 C16,-30 30,-18 27,-2 C25,10 12,16 2,12 C-8,8 -10,-6 -3,-15 C0,-19 0,-22 0,-26Z" fill="url(#petalPink)" transform="rotate(144)"/>
+              <path d="M0,-26 C16,-30 30,-18 27,-2 C25,10 12,16 2,12 C-8,8 -10,-6 -3,-15 C0,-19 0,-22 0,-26Z" fill="url(#petalPink)" transform="rotate(216)"/>
+              <path d="M0,-26 C16,-30 30,-18 27,-2 C25,10 12,16 2,12 C-8,8 -10,-6 -3,-15 C0,-19 0,-22 0,-26Z" fill="url(#petalPink)" transform="rotate(288)"/>
+            </g>
+            <!-- center spiral -->
+            <circle r="9" fill="#9e1659"/>
+            <path d="M0,-7 C5,-7 8,-3 6,2 C4,6 -1,7 -4,3 C-6,0 -4,-4 0,-5" fill="none" stroke="#741044" stroke-width="1.5" stroke-linecap="round"/>
+            <circle r="2.4" fill="#5e0d36"/>
+          </g>
+
+          <!-- red variant via overlay color swap -->
+          <g id="roseRed">
+            <use href="#rose"/>
+          </g>
+
+          <!-- detailed leaf with vein -->
+          <g id="leaf">
+            <path d="M0,0 C10,-9 24,-8 32,2 C22,6 8,7 0,0 Z" fill="url(#leafGrad)"/>
+            <path d="M2,1 C12,-2 22,-1 30,2" fill="none" stroke="#1c3a1e" stroke-width="1" opacity=".6"/>
+          </g>
+          <g id="bud">
+            <path d="M0,-10 C7,-10 9,-2 6,5 C3,10 -3,10 -6,5 C-9,-2 -7,-10 0,-10Z" fill="url(#petalPink)"/>
+            <path d="M0,4 C-5,10 -10,9 -11,3 M0,4 C5,10 10,9 11,3 M0,5 L0,14" fill="none" stroke="#2c5230" stroke-width="1.8" stroke-linecap="round"/>
+          </g>
+          <!-- thorn: small curved spike -->
+          <path id="thorn" d="M0,0 C1.4,-3 1.2,-6 -0.6,-8 C2,-6.5 4,-4 3,0 Z" fill="#274a28"/>
+        </defs>
+
+        <!-- FOLIAGE + VINES (soft) -->
+        <g opacity="0.32">
+          <path d="M-10,300 C70,255 55,180 130,165 C210,150 235,80 350,86 C420,90 470,45 520,30"
+                fill="none" stroke="#2f5530" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M-8,55 C90,68 105,150 195,168 C300,188 325,255 445,260 C485,262 505,292 518,308"
+                fill="none" stroke="#2f5530" stroke-width="2.3" stroke-linecap="round"/>
+          <use href="#leaf" transform="translate(92,212) rotate(35) scale(1.0)"/>
+          <use href="#leaf" transform="translate(118,140) rotate(-58) scale(.85)"/>
+          <use href="#leaf" transform="translate(250,128) rotate(18) scale(1.0)"/>
+          <use href="#leaf" transform="translate(300,66) rotate(-32) scale(.9)"/>
+          <use href="#leaf" transform="translate(418,256) rotate(150) scale(.95)"/>
+          <use href="#leaf" transform="translate(158,176) rotate(205) scale(.85)"/>
+          <use href="#leaf" transform="translate(335,242) rotate(122) scale(.9)"/>
+          <use href="#leaf" transform="translate(58,272) rotate(60) scale(.85)"/>
+          <use href="#leaf" transform="translate(470,80) rotate(-10) scale(.9)"/>
+          <use href="#leaf" transform="translate(40,150) rotate(95) scale(.8)"/>
+
+          <!-- thorns along the upper vine (bottom-left -> top-right) -->
+          <use href="#thorn" transform="translate(60,250) rotate(-115)"/>
+          <use href="#thorn" transform="translate(100,195) rotate(-100)"/>
+          <use href="#thorn" transform="translate(180,158) rotate(70)"/>
+          <use href="#thorn" transform="translate(245,128) rotate(60)"/>
+          <use href="#thorn" transform="translate(300,90) rotate(255)"/>
+          <use href="#thorn" transform="translate(390,82) rotate(75)"/>
+          <use href="#thorn" transform="translate(455,55) rotate(250)"/>
+          <!-- thorns along the lower vine (top-left -> bottom-right) -->
+          <use href="#thorn" transform="translate(70,90) rotate(20)"/>
+          <use href="#thorn" transform="translate(135,150) rotate(200)"/>
+          <use href="#thorn" transform="translate(225,175) rotate(35)"/>
+          <use href="#thorn" transform="translate(300,205) rotate(210)"/>
+          <use href="#thorn" transform="translate(380,245) rotate(30)"/>
+          <use href="#thorn" transform="translate(460,260) rotate(215)"/>
+          <use href="#thorn" transform="translate(495,290) rotate(40)"/>
+        </g>
+
+        <!-- BLOOMS (faded) — clustered top-right & bottom-left corners -->
+        <g opacity="0.34">
+          <use href="#bud" transform="translate(455,128) rotate(160) scale(.8)"/>
+        </g>
+        <g opacity="0.4">
+          <!-- bottom-left corner cluster -->
+          <use href="#rose" transform="translate(8,308) scale(1.25)"/>
+          <use href="#rose" transform="translate(72,288) scale(.8)"/>
+          <use href="#rose" transform="translate(150,180) scale(.92)"/>
+          <!-- top-right corner cluster -->
+          <use href="#rose" transform="translate(495,32) scale(1.25)"/>
+          <use href="#rose" transform="translate(445,72) scale(.8)"/>
+          <use href="#rose" transform="translate(498,268) scale(1.0)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="inner">
+      <div class="topline">
+        <div>
+          <div class="brand">Addicted&nbsp;To&nbsp;Ink</div>
+          <div class="sub">Tattoo &amp; Piercing</div>
+        </div>
+        <div class="est">Studio<b>Since 2007</b></div>
+      </div>
+
+      <div class="giftlabel">Gift Card</div>
+
+      <div class="recipient">
+        <div>
+          <div class="to-label">To</div>
+          <div class="to-name">Jen</div>
+          <div class="wish">Happy Birthday!!!</div>
+          <div class="order">
+            <small>Order</small>
+            <b>#2988</b>
+          </div>
+        </div>
+        <div class="amount"><span class="cur">$</span>250</div>
+      </div>
+
+      <div class="footer">
+        <span class="addr">
+          <span>29 Court Street</span>
+          <span>White Plains, NY 10601</span>
+        </span>
+        <span class="right">
+          <span class="phone">(914) 231-6670</span>
+          <a href="https://addictedtoinktattoos.com">addictedtoinktattoos.com</a>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="save"><button onclick="window.print()">Save / Print Card</button></div>
+</body>
+</html>
