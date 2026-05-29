@@ -13,31 +13,106 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   body{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:26px;padding:40px 18px;font-family:'Jost',sans-serif;color:#43434b;
+    gap:18px;padding:40px 18px;font-family:'Jost',sans-serif;color:#43434b;overflow-x:hidden;
     background:#e4dccf;
     background-image:
-      radial-gradient(circle at 18% 12%, rgba(215,169,165,.14), transparent 50%),
-      radial-gradient(circle at 82% 88%, rgba(174,191,178,.16), transparent 50%);}
-  h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;color:#43434b;text-align:center;}
+      radial-gradient(circle at 18% 12%, rgba(215,169,165,.16), transparent 50%),
+      radial-gradient(circle at 82% 88%, rgba(174,191,178,.18), transparent 50%);}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;text-align:center;
+     opacity:0;transition:opacity .8s ease 2.2s;}
   h1 span{color:#c89a95;}
-  img{width:min(520px,100%);height:auto;border-radius:18px;
-    box-shadow:0 22px 44px -22px rgba(80,60,55,.5);display:block;}
-  .actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+  .scene.open ~ h1{opacity:1;}
+
+  /* ---- stage ---- */
+  .scene{position:relative;width:min(560px,94vw);aspect-ratio:1.45/1;
+    perspective:1400px;cursor:pointer;margin-top:10px;}
+
+  /* the card (your real PNG) starts tucked inside, behind the envelope front */
+  .card{position:absolute;left:50%;top:50%;width:86%;
+    transform:translate(-50%,-32%) scale(.96);
+    border-radius:14px;box-shadow:0 14px 30px -14px rgba(80,60,55,.55);
+    z-index:2;transition:transform 1.15s cubic-bezier(.22,1,.36,1) .9s, box-shadow .6s ease;}
+  .scene.open .card{transform:translate(-50%,-92%) scale(1);
+    box-shadow:0 34px 60px -22px rgba(80,60,55,.6);}
+
+  /* envelope pieces */
+  .env-back{position:absolute;inset:auto 0 0 0;height:66%;border-radius:0 0 16px 16px;
+    background:linear-gradient(160deg,#efe7da,#e6dccb);z-index:1;
+    box-shadow:0 18px 36px -18px rgba(80,60,55,.5);}
+  /* front pocket: trapezoid that hides the card's lower half (the "tuck") */
+  .env-front{position:absolute;inset:auto 0 0 0;height:66%;z-index:3;border-radius:0 0 16px 16px;
+    background:linear-gradient(160deg,#f3ecdf,#e9dfce);
+    clip-path:polygon(0 38%, 50% 100%, 100% 38%, 100% 100%, 0 100%);
+    box-shadow:inset 0 2px 6px rgba(255,255,255,.5);}
+  /* side faces of the pocket for a bit of depth */
+  .env-front::before,.env-front::after{content:"";position:absolute;bottom:0;width:50%;height:100%;}
+  .env-front::before{left:0;background:linear-gradient(120deg,#ece2d0,#e4d9c5);
+    clip-path:polygon(0 38%,100% 100%,0 100%);}
+  .env-front::after{right:0;background:linear-gradient(240deg,#ece2d0,#e4d9c5);
+    clip-path:polygon(100% 38%,0 100%,100% 100%);}
+
+  /* flap hinged at the top, opens up and back */
+  .flap{position:absolute;left:0;top:34%;width:100%;height:32%;z-index:5;transform-origin:top;
+    background:linear-gradient(160deg,#e9c9c4,#dcb3ad);
+    clip-path:polygon(0 0,50% 100%,100% 0);
+    transition:transform .7s ease .25s;
+    box-shadow:0 3px 8px -3px rgba(120,80,80,.4);}
+  .scene.open .flap{transform:rotateX(-172deg);z-index:1;box-shadow:none;}
+
+  .hint{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#84818b;
+    transition:opacity .4s ease;}
+  .scene.open ~ .hint{opacity:0;}
+
+  /* download/print buttons */
+  .actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;
+    opacity:0;transform:translateY(8px);transition:opacity .8s ease 2.4s, transform .8s ease 2.4s;}
+  .scene.open ~ .actions{opacity:1;transform:none;}
   a.btn{font-weight:500;letter-spacing:.16em;text-transform:uppercase;font-size:12px;
     color:#f6efe3;background:#c89a95;text-decoration:none;padding:12px 24px;border-radius:8px;
-    box-shadow:0 8px 18px -8px rgba(200,154,149,.7);transition:.2s;}
+    box-shadow:0 8px 18px -8px rgba(200,154,149,.7);transition:transform .2s;}
   a.btn.alt{background:transparent;color:#84818b;border:1px solid rgba(67,67,75,.18);box-shadow:none;}
   a.btn:hover{transform:translateY(-1px);}
-  p.note{font-size:13px;color:#84818b;text-align:center;max-width:380px;line-height:1.5;}
+  p.note{font-size:13px;color:#84818b;text-align:center;max-width:380px;line-height:1.5;
+    opacity:0;transition:opacity .8s ease 2.6s;}
+  .scene.open ~ p.note{opacity:1;}
+  .replay{background:none;border:none;color:#b3726d;font-family:'Jost';font-size:12px;
+    letter-spacing:.12em;text-transform:uppercase;cursor:pointer;opacity:0;transition:opacity .8s ease 2.6s;}
+  .scene.open ~ .replay{opacity:.8;}
 </style>
 </head>
 <body>
+  <div class="scene" id="scene" aria-label="Tap to open gift">
+    <div class="env-back"></div>
+    <img class="card" src="addicted-to-ink-giftcard.png" alt="Addicted To Ink gift card — $250 for Jen">
+    <div class="env-front"></div>
+    <div class="flap"></div>
+  </div>
+
   <h1>Happy Birthday, <span>Jen!</span> 🎂</h1>
-  <img src="addicted-to-ink-giftcard.png" alt="Addicted To Ink gift card — $250 for Jen">
+  <p class="hint">Tap the envelope</p>
+
   <div class="actions">
     <a class="btn" href="addicted-to-ink-giftcard.png" download>Download Image</a>
     <a class="btn alt" href="addicted-to-ink-giftcard.pdf" download>Print PDF</a>
   </div>
   <p class="note">The redeemable gift card code arrives separately by email from the shop. This is your keepsake card.</p>
+  <button class="replay" id="replay">Replay ↺</button>
+
+  <script>
+    const scene = document.getElementById('scene');
+    const replay = document.getElementById('replay');
+    function open(){ scene.classList.add('open'); }
+    function reset(){
+      scene.classList.remove('open');
+      // force reflow so the animation can play again
+      void scene.offsetWidth;
+      setTimeout(open, 400);
+    }
+    // auto-open shortly after load
+    window.addEventListener('load', ()=> setTimeout(open, 700));
+    // tap envelope to (re)open
+    scene.addEventListener('click', ()=>{ scene.classList.contains('open') ? reset() : open(); });
+    replay.addEventListener('click', reset);
+  </script>
 </body>
 </html>
